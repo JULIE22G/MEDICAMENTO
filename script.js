@@ -34,14 +34,15 @@ const mensajes = [
 // 💾 Cargar datos
 let racha = Number(localStorage.getItem("rachaMed"));
 let ultimaFecha = localStorage.getItem("ultimaFechaMed");
+let iniciado = localStorage.getItem("iniciado");
 
-// 🌱 Si es primera vez, empezar en 6
-if (!racha) {
+if (!iniciado) {
   racha = 6;
+  ultimaFecha = hoyStr;
   localStorage.setItem("rachaMed", racha);
   localStorage.setItem("ultimaFechaMed", hoyStr);
+  localStorage.setItem("iniciado", "true");
 }
-
 rachaEl.textContent = racha;
 
 // 🔘 Botón
