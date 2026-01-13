@@ -14,7 +14,7 @@ const DIAS_SI = 10;
 const DIAS_NO = 20;
 const CICLO = DIAS_SI + DIAS_NO;
 
-// 📅 HOY = día 1
+// 📅 HOY
 const hoy = new Date();
 const hoyStr = hoy.toDateString();
 
@@ -22,17 +22,25 @@ const hoyStr = hoy.toDateString();
 const year = 2026;
 const month = 0;
 
-// 💜 Mensajes lindos (inspiración calm)
+// 💜 Mensajes lindos
 const mensajes = [
-  "Lo estás haciendo muy bien 💜",
+  "Lo estás haciendo muy bien corazon 💜",
   "Un pasito también cuenta 🌷",
   "Sigue así, con calma ✨",
   "Incluso los días tranquilos importan 🌙",
-  "Orgullo silencioso por ti 🤍"
+  "Te quiero mi vidita 🤍"
 ];
 
-let racha = Number(localStorage.getItem("rachaMed")) || 0;
+// 💾 Cargar datos
+let racha = Number(localStorage.getItem("rachaMed"));
 let ultimaFecha = localStorage.getItem("ultimaFechaMed");
+
+// 🌱 Si es primera vez, empezar en 6
+if (!racha) {
+  racha = 6;
+  localStorage.setItem("rachaMed", racha);
+  localStorage.setItem("ultimaFechaMed", hoyStr);
+}
 
 rachaEl.textContent = racha;
 
@@ -46,10 +54,9 @@ btn.addEventListener("click", () => {
   const ayer = new Date(hoy);
   ayer.setDate(hoy.getDate() - 1);
 
-  if (ultimaFecha === ayer.toDateString()) {
+  // Modo suave: nunca se reinicia
+  if (ultimaFecha !== hoyStr) {
     racha++;
-  } else {
-    racha = 1;
   }
 
   mensajeEl.textContent = mensajes[Math.floor(Math.random() * mensajes.length)];
@@ -91,7 +98,7 @@ function renderCalendario() {
 
 renderCalendario();
 
-// 🎉 Función confeti
+// 🎉 Confeti
 function lanzarConfeti() {
   const confeti = [];
   const colores = ["#ff9a9e", "#fad0c4", "#b983ff", "#a6c1ee"];
